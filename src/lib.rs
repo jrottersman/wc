@@ -1,7 +1,8 @@
 extern crate clap;
 
 use std::fs;
-use clap::{Arg, ArgMatches};
+use std::error::Error;
+use clap::ArgMatches;
 
 pub fn wc_line(s: &String) -> usize {
     let split = s.lines();
@@ -35,11 +36,11 @@ pub fn wc_byte(s: &String) -> usize {
     len
 }
 
-pub fn run(matches: ArgMatches) {
+pub fn run(matches: ArgMatches) -> Result<(), Box<dyn Error>> {
     let file = matches.value_of("input").unwrap();
     println!("Input is: {}", file);
-    let contents = fs::read_to_string(file)
-        .expect("Someting went wrong reading the file");
+    let contents = fs::read_to_string(file)?;
+
     println!("file contains: {}", contents);
 
     if matches.is_present("chars") {
@@ -55,6 +56,8 @@ pub fn run(matches: ArgMatches) {
         println!("by word");
         wc_word(&contents);
     }
+
+    Ok(())
 }
 
 #[cfg(test)]

@@ -1,15 +1,11 @@
 extern crate clap;
 
+use std::process;
 use clap::{App, Arg};
 use wc;
 
 fn main() {
-    /* TODO: Create flags
-     * READ File
-     * Split file by char if -c by new line if -l or by space default
-     * count number of elements that are produced
-     * output count to stdout
-    */
+
     
     let matches = App::new("wc")
         .version("0.1")
@@ -38,6 +34,10 @@ fn main() {
             )
         .get_matches();
 
-        wc::run(matches)
+    if let Err(e) = wc::run(matches) {
+        eprintln!("Application error: {}", e);
+
+        process::exit(1);
+    }
 
 }
