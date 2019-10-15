@@ -1,3 +1,7 @@
+extern crate clap;
+
+use std::fs;
+use clap::{Arg, ArgMatches};
 
 pub fn wc_line(s: &String) -> usize {
     let split = s.lines();
@@ -29,6 +33,28 @@ pub fn wc_byte(s: &String) -> usize {
 
     println!("Count by bytes: {}", len);
     len
+}
+
+pub fn run(matches: ArgMatches) {
+    let file = matches.value_of("input").unwrap();
+    println!("Input is: {}", file);
+    let contents = fs::read_to_string(file)
+        .expect("Someting went wrong reading the file");
+    println!("file contains: {}", contents);
+
+    if matches.is_present("chars") {
+        println!("by char");
+        wc_char(&contents);
+    } else if matches.is_present("lines") {
+        println!("by line");
+        wc_line(&contents);
+    } else if matches.is_present("bytes") {
+        println!("by bytes");
+        wc_byte(&contents);
+    } else {
+        println!("by word");
+        wc_word(&contents);
+    }
 }
 
 #[cfg(test)]

@@ -1,8 +1,6 @@
 extern crate clap;
+
 use clap::{App, Arg};
-
-use std::fs;
-
 use wc;
 
 fn main() {
@@ -40,25 +38,6 @@ fn main() {
             )
         .get_matches();
 
-
-    let file = matches.value_of("input").unwrap();
-    println!("Input is: {}", file);
-    let contents = fs::read_to_string(file)
-        .expect("Someting went wrong reading the file");
-    println!("file contains: {}", contents);
-
-    if matches.is_present("chars") {
-        println!("by char");
-        wc::wc_char(&contents);
-    } else if matches.is_present("lines") {
-        println!("by line");
-        wc::wc_line(&contents);
-    } else if matches.is_present("bytes") {
-        println!("by bytes");
-        wc::wc_byte(&contents);
-    } else {
-        println!("by word");
-        wc::wc_word(&contents);
-    }
+        wc::run(matches)
 
 }
