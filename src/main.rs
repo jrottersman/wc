@@ -2,7 +2,7 @@ extern crate clap;
 
 use std::process;
 use clap::{App, Arg};
-use wc;
+use wc_jake_toy;
 
 fn main() {
 
@@ -34,7 +34,7 @@ fn main() {
             )
         .get_matches();
 
-    if let Err(e) = wc::run(matches) {
+    if let Err(e) = wc_jake_toy::run(matches) {
         eprintln!("Application error: {}", e);
 
         process::exit(1);

@@ -1,10 +1,10 @@
 [package]
-name = "wc"
+name = "wc_jake_toy"
 version = "0.1.0"
 authors = ["jake"]
 edition = "2018"
 description = "A toy version of word count"
-license = "mit"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
