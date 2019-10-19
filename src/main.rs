@@ -29,8 +29,7 @@ fn main() {
         .arg(
             Arg::with_name("input")
             .help("the input file to use")
-            .index(1)
-            .required(true),
+            .index(1),
             )
         .get_matches();
 

@@ -3,6 +3,7 @@ extern crate clap;
 use std::fs;
 use std::error::Error;
 use clap::ArgMatches;
+use std::io::{self, Read};
 
 pub fn wc_line(s: &String) -> usize {
     let split = s.lines();
@@ -36,12 +37,18 @@ pub fn wc_byte(s: &String) -> usize {
     len
 }
 
-pub fn run(matches: ArgMatches) -> Result<(), Box<dyn Error>> {
-    let file = matches.value_of("input").unwrap();
-    println!("Input is: {}", file);
-    let contents = fs::read_to_string(file)?;
 
-    println!("file contains: {}", contents);
+pub fn run(matches: ArgMatches) -> Result<(), Box<dyn Error>> {
+    
+    let mut contents = String::new();
+    if matches.is_present("input") {
+        let file = matches.value_of("input").unwrap();
+        println!("Input is: {}", file);
+        contents = fs::read_to_string(file)?;
+        
+    } else  {
+        io::stdin().read_to_string(&mut contents)?;
+    }
 
     if matches.is_present("chars") {
         println!("by char");
